@@ -9,17 +9,18 @@ require 'spreadsheet'
                       
 array = Array.new
 counter = 0
-spreadsheetName = 'excel_data.xls'  #name of your spreadsheet file
+spreadsheetName = 'your_file.xls'  #name of your spreadsheet file
 newFile = 'output.txt' #your destination file for the SQL output
+sheetName = 'Sheet1' #name of the excel sheet inside the spreadsheet file
 
 
 Spreadsheet.open spreadsheetName do |sheet|
 	puts "Working..." 
 	
-	sheet.worksheet('Sheet1').each do |row|        
+	sheet.worksheet(sheetName).each do |row|        
 		
 		#to SQL insert statements:
-		entry = "insert into table_name (col1_name, col2_name, col3_name, col4_name, col5_name) values('#{row[0]}', #{row[1].to_f}, #{row[2].to_i}, #{row[3].to_i}, '#{row[4]}');"   #cast cell data as needed (.to_i, .to_f)
+		entry = "insert into TABLE_NAME (column1, column2, column3) values('#{row[0]}', #{row[1].to_f}, #{row[2].to_i});"   #cast cell data as needed (.to_i, .to_f)
 
 		File.open(newFile, 'a') do |file|
 			file.puts entry		
